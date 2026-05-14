@@ -63,6 +63,8 @@ public class Recette
 
     private void setDifficulte(int difficulte) {
         if(difficulte < DIFFICULTE_MIN || difficulte > DIFFICULTE_MAX){
+            throw new IllegalArgumentException(MESSAGE_DIFFICULTE_INVALIDE);
+        }
         this.difficulte = difficulte;
     }
 
