@@ -1,7 +1,7 @@
 package logique;
 
 import java.util.Random;
-
+import static logique.Ingredient.*;
 public class Alchimiste
 {
     public static final int EXPERIENCE_POUR_NIVEAU_SUIVANT = 500;
@@ -37,6 +37,11 @@ public class Alchimiste
 
     private void setNom(String nom)
     {
+        if (nom == null){
+            throw new IllegalArgumentException(MESSAGE_VALEUR_NULL_NON_PERMISE);
+        }else if (nom.length() < MIN_CARACTERS_NOM){
+            throw new IllegalArgumentException(MESSAGE_NOM_TROP_COURT);
+        }
         this.nom = nom;
     }
     private void setNiveau(int niveau)
@@ -50,6 +55,9 @@ public class Alchimiste
 
     public boolean fairePotion(Recette recette)
     {
+        if(recette == null){
+            throw new IllegalArgumentException(MESSAGE_VALEUR_NULL_NON_PERMISE);
+        }
         boolean estReussi = false;
         double tauxExperience = this.niveau * 0.05;
         double tauxEchec = (recette.getDifficulte() * 0.25) - tauxExperience;
