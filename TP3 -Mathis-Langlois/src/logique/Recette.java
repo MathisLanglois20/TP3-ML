@@ -1,13 +1,21 @@
 package logique;
 
 import java.util.ArrayList;
-
+import static logique.Ingredient.*;
 /**
  * Author : Mathieu Bourgoin
  * Ordre de conception : 3e
  */
 public class Recette
 {
+    public static final int MIN_CARACTERES_NOM_RECETTE = 10;
+    public static final int DIFFICULTE_MIN = 1;
+    public static final int DIFFICULTE_MAX = 5;
+
+    public static final String MESSAGE_DIFFICULTE_INVALIDE = "Difficulte invalide";
+    public static final String MESSAGE_POINT_EXPERIENCE_INVALIDE = "Point experience invalide";
+    public static final String MESSAGE_INGREDIENT_DOUBLE = "Ingredient deja present";
+
     private ArrayList<Ingredient> ingredients;
     private String nom;
     private int difficulte;
@@ -15,6 +23,13 @@ public class Recette
 
     public Recette(Ingredient ing1, Ingredient ing2, Ingredient ing3, String nom, int difficulte, int pointExperience)
     {
+        if (ing1 == null || ing2 == null || ing3 == null) {
+            throw new IllegalArgumentException(MESSAGE_VALEUR_NULL_NON_PERMISE);
+        }else if (ing1.getNom().equals(ing2.getNom()) ||
+                ing1.getNom().equals(ing3.getNom()) ||
+                ing2.getNom().equals(ing3.getNom())) {
+            throw new IllegalArgumentException(MESSAGE_INGREDIENT_DOUBLE);
+    }
         this.ingredients = new ArrayList<Ingredient>();
         this.ingredients.add(ing1);
         this.ingredients.add(ing2);
@@ -31,10 +46,18 @@ public class Recette
     }
 
     private void setNom(String nom) {
+        if (nom == null) {
+            throw new IllegalArgumentException(MESSAGE_VALEUR_NULL_NON_PERMISE);
+        } else if (nom.length() < MIN_CARACTERES_NOM_RECETTE) {
+            throw new IllegalArgumentException(MESSAGE_NOM_TROP_COURT);
+        }
         this.nom = nom;
     }
 
     public int getDifficulte() {
+        if(difficulte < DIFFICULTE_MIN || difficulte > DIFFICULTE_MAX){
+            throw new IllegalArgumentException(MESSAGE_DIFFICULTE_INVALIDE);
+        }
         return difficulte;
     }
 
@@ -62,6 +85,9 @@ public class Recette
 
     public boolean contientIngredient(String nom)
     {
+        if (nom == null) {
+            throw new IllegalArgumentException(MESSAGE_VALEUR_NULL_NON_PERMISE);
+        }
         boolean estContenu = false;
 
         for (Ingredient ing : this.ingredients)
