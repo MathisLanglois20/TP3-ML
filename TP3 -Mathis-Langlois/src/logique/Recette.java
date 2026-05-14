@@ -12,6 +12,8 @@ public class Recette
     public static final int DIFFICULTE_MIN = 1;
     public static final int DIFFICULTE_MAX = 5;
 
+    public static final String MESSAGE_VALEUR_NULL_NON_PERMISE = "Valeur null non permise";
+    public static final String MESSAGE_NOM_TROP_COURT = "Nom trop court";
     public static final String MESSAGE_DIFFICULTE_INVALIDE = "Difficulte invalide";
     public static final String MESSAGE_POINT_EXPERIENCE_INVALIDE = "Point experience invalide";
     public static final String MESSAGE_INGREDIENT_DOUBLE = "Ingredient deja present";
@@ -55,13 +57,12 @@ public class Recette
     }
 
     public int getDifficulte() {
-        if(difficulte < DIFFICULTE_MIN || difficulte > DIFFICULTE_MAX){
-            throw new IllegalArgumentException(MESSAGE_DIFFICULTE_INVALIDE);
-        }
+
         return difficulte;
     }
 
     private void setDifficulte(int difficulte) {
+        if(difficulte < DIFFICULTE_MIN || difficulte > DIFFICULTE_MAX){
         this.difficulte = difficulte;
     }
 
@@ -70,6 +71,9 @@ public class Recette
     }
 
     private void setPointExperience(int pointExperience) {
+        if(pointExperience <= 0) {
+            throw new IllegalArgumentException(MESSAGE_POINT_EXPERIENCE_INVALIDE);
+        }
         this.pointExperience = pointExperience;
     }
 
