@@ -132,7 +132,7 @@ public class Laboratoire
 
         try
         {
-            Path path = Paths.get("src/ingredients.txt");
+            Path path = Paths.get("ingredients.txt");
             lignesFichier = Files.readAllLines(path);
         } catch (IOException e) {
             throw new RuntimeException("Fichier non trouvé");
@@ -158,7 +158,7 @@ public class Laboratoire
 
         try
         {
-            Path path = Paths.get("src/recettes.txt");
+            Path path = Paths.get("recettes.txt");
             lignesFichier = Files.readAllLines(path);
         } catch (IOException e) {
             throw new RuntimeException("Fichier non trouvé");
